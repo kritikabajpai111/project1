@@ -8,9 +8,8 @@ class Login extends REST_Controller {
         $this->import('classes','validate');		
 		$this->load->model('User_model');
 		//$this->import('classes','utility');
-		$this->load->library('utility');
+//$this->load->library('utility');
 		$this->import('classes','twilio');
-				
     }
 function password_reset_by_email_get() {
 		$this->response(['error' => '204', 'message' => 'POST Method Required'], REST_Controller::HTTP_OK);
@@ -23,7 +22,7 @@ function password_reset_by_email_post() {
 	    //input
 		$email = $this->post('email');			
 		$language= $this->post('language')?$this->post('language'):'EN';
-		$this->lang->load('email_lang',$language);
+		//$this->lang->load('email_lang',$language);
 		
 		if(!in_array($language,$this->languages))		
 			$language='EN';		
@@ -37,7 +36,6 @@ function password_reset_by_email_post() {
 	    
 		
 		//Looking for account avalibility against the email address 
-	     $check=$this->User_model->count_users($email);		 
 		 if($check['result']==1)
 		 $this->response(['error'=>'4500', 'type'=>'output', 'object'=>'contact',  'attribute'=>'contact_content', 'message'=>'EmailId Already in Use#'.$email.' is already registered in our system.Please enter another mobile number or log in to the account associated with the mobile number.']);
         
